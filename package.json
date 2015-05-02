@@ -26,6 +26,10 @@
     "grunt-chrome-manifest": "~0.2.0",
     "grunt-contrib-compress": "~0.9.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/metal-hero/disqus_fe.git"
+  },
   "engines": {
     "node": ">=0.8.0"
   }
