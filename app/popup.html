@@ -19,7 +19,7 @@
       <div class="panel-heading">
           <h3 class="panel-title">Who are you?</h3>
       </div>
-      <form class="form-horizontal" action="http://127.0.0.1:35729/login/" method="post">
+      <form class="form-horizontal" action="http://127.0.0.1:8000/login/" method="post">
           <fieldset class="good-padding">
               <div class="form-group">
                   <div class="col-lg-10">
@@ -28,7 +28,7 @@
               </div>
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">   
+                      <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">   
                   </div>
               </div>
               <div class="form-group">
@@ -41,6 +41,80 @@
           </fieldset>
       </form>
   </div>
+
+  <p><h1 style="margin-left:25%;font-style:bold;">SDU Disqus</h1></p>
+
+ <!-- Creating 1st div -->
+  <div class="panel panel-primary" style="width:90%;margin-left:20px">
+    <div class="panel-heading">
+        Who are you?
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <div class="col-lg-10">
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+        <div class="col-lg-10">
+          <input type="text" name = "mustName" class="form-control" id="nameInput" placeholder="Name">
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Creating 2nd div -->
+  <div class="panel panel-primary" style="width:90%;margin-left:20px">
+    <div class="panel-heading">
+        Body
+    </div>
+    <div class="panel-body" id="someID" style="overflow-y:auto;max-height:280px !important;">
+      <div class="list-group" id="omg" >
+          <!--<div class="list-group-item">
+              <div class="row-action-primary">
+                  <img class="circle" src="http://cs623127.vk.me/v623127561/2833a/pEIEYnA-BPE.jpg" />
+              </div>
+              <div class="row-content">
+                  <div class="least-content">01.05.15</div>
+                  <h4 class="list-group-item-heading">Tamerlan</h4>
+                  <p class="list-group-item-text">Hello word.</p>
+              </div>
+          </div> -->
+          <!-- horizontal line
+            <div class="list-group-separator"></div>
+          -->
+      </div>
+    </div>
+
+ <!-- Creating footer div -->
+    <div class="panel-footer" style="margin-top:-5%">
+      <i class="mdi-communication-messenger" style="font:20px 'Material-Design-Icons';margin-top:1%"></i>
+      <div class="form-control-wrapper" style=""> 
+        <input class='form-control empty' id='focusedInput' type='text' style='width:90%;margin-left:10%;margin-top:-7%' disabled='disabled'>
+          <div class="floating-label" style="width:80%;margin-left:10%;bottom:20px;font-weight:bold">
+            Type your comments and press Enter
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/reactive/ractive.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+  <script src="js/md5.js"></script>
+  <script src="js/jquery.autoSave.min.js"></script>
+  <script src="scripts/background.js"></script>
+
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/popup.js -->
+  <script src="scripts/popup.js"></script>
+  <!-- endbuild -->
 
 
   <!-- build:js scripts/vendor.js -->

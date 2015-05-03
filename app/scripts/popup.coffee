@@ -1,3 +1,160 @@
 'use strict';
 
+
+(->
+  checkEmpty = undefined
+  email = undefined
+  foo = undefined
+  name = undefined
+  retrievedObject = undefined
+  user = undefined
+  yourGlobalVariable = undefined
+  loadData = undefined
+  deleteAllData = undefined
+  counter = undefined
+  counter = localStorage.getItem('counter')
+  counter = 0
+  console.log counter
+  yourGlobalVariable = 0
+  user =
+    email: null
+    nameString: null
+  retrievedObject = localStorage.getItem('memory', user)
+  foo = JSON.parse(retrievedObject)
+  email = document.getElementById('inputEmail')
+  name = document.getElementById('nameInput')
+  name.setAttribute 'value', foo.nameString
+  email.setAttribute 'value', foo.email
+  emailInput = undefined
+  nameInput = undefined
+  emailInput = document.getElementById('inputEmail').value
+  nameInput = document.getElementById('nameInput').value
+  if emailInput.length == 0 or nameInput.length == 0
+    $('#focusedInput').attr 'disabled', 'disabled'
+  else
+    $('#focusedInput').removeAttr 'disabled'
+
+  checkEmpty = ->
+    if emailInput.length == 0 or nameInput.length == 0
+      true
+    else
+      false
+
+  loadData = ->
+    $.ajax
+      url: 'http://127.0.0.1:8000/api/v1/comment/'
+      success: (result) ->
+        `var email`
+        if counter < result.objects.length
+          i = counter + 1
+          while i < result.objects.length
+            contDiv = undefined
+            dd = undefined
+            email = undefined
+            globalDiv = undefined
+            gravatar = undefined
+            img = undefined
+            imgDiv = undefined
+            mesDiv = undefined
+            mesString = undefined
+            mm = undefined
+            nameString = undefined
+            nameUser = undefined
+            newDiv = undefined
+            sep = undefined
+            timeDiv = undefined
+            today = undefined
+            yyyy = undefined
+            mesString = document.getElementById('focusedInput').value
+            globalDiv = document.getElementById('omg')
+            if yourGlobalVariable > 0
+              sep = document.createElement('div')
+              sep.setAttribute 'class', 'list-group-separator'
+              globalDiv.appendChild sep
+            newDiv = document.createElement('div')
+            newDiv.setAttribute 'class', 'list-group-item'
+            globalDiv.appendChild newDiv
+            imgDiv = document.createElement('div')
+            imgDiv.setAttribute 'class', 'row-action-primary'
+            newDiv.appendChild imgDiv
+            img = document.createElement('img')
+            img.setAttribute 'class', 'circle'
+            gravatar = result.objects[i].image
+            img.setAttribute 'src', gravatar
+            imgDiv.appendChild img
+            contDiv = document.createElement('div')
+            contDiv.setAttribute 'class', 'row-content'
+            newDiv.appendChild contDiv
+            timeDiv = document.createElement('div')
+            timeDiv.setAttribute 'class', 'least-content'
+            time = result.objects[i].pub_time
+            time = time.substring(0, 10)
+            day = time.substring(8, 10)
+            month = time.substring(5, 7)
+            year = time.substring(2, 4)
+            timeDiv.appendChild document.createTextNode(day + '.' + month + '.' + year)
+            contDiv.appendChild timeDiv
+            nameUser = document.createElement('h4')
+            nameUser.setAttribute 'class', 'list-group-item-heading'
+            nameUser.appendChild document.createTextNode(result.objects[i].author_title)
+            contDiv.appendChild nameUser
+            mesDiv = document.createElement('p')
+            mesDiv.setAttribute 'class', 'list-group-item-text'
+            mesDiv.appendChild document.createTextNode(result.objects[i].text)
+            contDiv.appendChild mesDiv
+            yourGlobalVariable++
+            counter = i
+            localStorage.setItem 'counter', counter
+            console.log counter + ' ' + i
+            i++
+        return
+    return
+
+  loadData()
+  $('.col-lg-10 > input').keyup ->
+    user.email = document.getElementById('inputEmail').value
+    user.nameString = document.getElementById('nameInput').value
+    localStorage.setItem 'memory', JSON.stringify(user)
+    empty = undefined
+    empty = checkEmpty()
+    $('.col-lg-10 > input').each ->
+      if $(this).val() == ''
+        empty = true
+      return
+    if empty
+      $('#focusedInput').attr 'disabled', 'disabled'
+    else
+      $('#focusedInput').removeAttr 'disabled'
+    return
+  $('#focusedInput').keyup ->
+    empty = undefined
+    empty = false
+    if $(this).val() == ''
+      empty = true
+    if empty
+      document.getElementById('focusedInput').className = 'form-control empty'
+    else
+      document.getElementById('focusedInput').className = 'form-control'
+    return
+  $('#focusedInput').keyup (event) ->
+    if document.getElementById('focusedInput').value != ''
+      if event.keyCode == 13
+        data = JSON.stringify(
+          'text': document.getElementById('focusedInput').value
+          'author_title': nameInput
+          'image': 'http://www.gravatar.com/avatar/' + CryptoJS.MD5(emailInput))
+        $.ajax
+          url: 'http://127.0.0.1:8000/api/v1/comment/'
+          type: 'POST'
+          contentType: 'application/json'
+          data: data
+          dataType: 'json'
+          processData: false
+        loadData()
+    return
+  return
+).call this
+
+# ---
+# generated by js2coffee 2.0.3
 # this script is used in popup.html
