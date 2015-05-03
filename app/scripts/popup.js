@@ -2,7 +2,7 @@
 (function() {
   'use strict';
   counter;
-  var checkEmpty, counter, email, emailInput, foo, loadData, name, nameInput, retrievedObject, tab_check, user, yourGlobalVariable;
+  var counter, email, foo, loadData, name, password, retrievedObject, tab_check, user, yourGlobalVariable;
 
   if (localStorage.getItem('counter')) {
     counter = localStorage.getItem('counter');
@@ -19,7 +19,9 @@
 
   email = document.getElementById('inputEmail');
 
-  name = document.getElementById('nameInput');
+  name = document.getElementById('inputName');
+
+  password = document.getElementById('inputPassword');
 
   retrievedObject;
 
@@ -32,35 +34,38 @@
     email.setAttribute('value', foo.email);
   }
 
-  emailInput = document.getElementById('inputEmail').value;
-
-  nameInput = document.getElementById('nameInput').value;
-
-  if (emailInput.length === 0 || nameInput.length === 0) {
-    $('#focusedInput').attr('disabled', 'disabled');
-  } else {
-    $('#focusedInput').removeAttr('disabled');
-  }
-
-  checkEmpty = function() {
-    if (emailInput.length === 0 || nameInput.length === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  tab_check = 0;
+  tab_check = false;
 
   $('#changer').click(function() {
-    if (tab_check === 0) {
-      $('#registration').addClass('hidden');
+    if (tab_check === false) {
+      $('#sign_up').addClass('hidden');
       $('#sign_in').removeClass('hidden');
-      return tab_check = 1;
+      $('#changer').html('Sign Up');
+      return tab_check = true;
     } else {
-      $('#registration').removeClass('hidden');
+      $('#sign_up').removeClass('hidden');
       $('#sign_in').addClass('hidden');
-      return tab_check = 0;
+      $('#changer').html('Sign In');
+      return tab_check = false;
+    }
+  });
+
+  $('#submitSignUp').click(function() {
+    if ($('#sign_up')[0].checkValidity()) {
+      alert('SMTH');
+      return $.ajax({
+        url: 'http://127.0.0.1:8000/api/v1/my_user/',
+        type: 'POST',
+        data: JSON.stringify({
+          email: $('#inputEmail').val(),
+          name: $('#inputName').val(),
+          password: $('#inputPassword').val()
+        }),
+        contentType: 'application/json',
+        success: function() {
+          return alert("Registrated");
+        }
+      });
     }
   });
 
@@ -140,61 +145,6 @@
   };
 
   loadData();
-
-  $('.col-lg-10 > input').keyup(function() {
-    var empty;
-    user.email = document.getElementById('inputEmail').value;
-    user.nameString = document.getElementById('nameInput').value;
-    localStorage.setItem('memory', JSON.stringify(user));
-    empty = void 0;
-    empty = checkEmpty();
-    $('.col-lg-10 > input').each(function() {
-      if ($(this).val() === '') {
-        empty = true;
-      }
-    });
-    if (empty) {
-      $('#focusedInput').attr('disabled', 'disabled');
-    } else {
-      $('#focusedInput').removeAttr('disabled');
-    }
-  });
-
-  $('#focusedInput').keyup(function() {
-    var empty;
-    empty = void 0;
-    empty = false;
-    if ($(this).val() === '') {
-      empty = true;
-    }
-    if (empty) {
-      document.getElementById('focusedInput').className = 'form-control empty';
-    } else {
-      document.getElementById('focusedInput').className = 'form-control';
-    }
-  });
-
-  $('#focusedInput').keyup(function(event) {
-    var data;
-    if (document.getElementById('focusedInput').value !== '') {
-      if (event.keyCode === 13) {
-        data = JSON.stringify({
-          'text': document.getElementById('focusedInput').value,
-          'author_title': nameInput,
-          'image': 'http://www.gravatar.com/avatar/' + CryptoJS.MD5(emailInput)
-        });
-        $.ajax({
-          url: 'http://127.0.0.1:8000/api/v1/comment/',
-          type: 'POST',
-          contentType: 'application/json',
-          data: data,
-          dataType: 'json',
-          processData: false
-        });
-        loadData();
-      }
-    }
-  });
 
   return;
 

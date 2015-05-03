@@ -21,7 +21,7 @@
           <button type="button" id="changer" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
           style="color:white;margin-left:50px;margin-top:-8px" >Sign In</button>
       </div>      
-      <form class="form-horizontal" id="registration" action="http://127.0.0.1:8000/api/v1/my_user/" method="post">
+      <form id="sign_up" >
           <fieldset class="good-padding">
               <div class="form-group">
                   <div class="col-lg-10">
@@ -35,19 +35,19 @@
               </div>
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>   
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required>   
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-1">
-                      <button type="submit" id="submit-login" class="btn btn-primary btn-sm ">
-                        Registrate
+                      <button id="submitSignUp" class="submit-login" class="btn btn-primary btn-sm">
+                        <b>Sign Up</b>
                       </button>
                   </div>
               </div>
           </fieldset>
       </form>
-      <form class="form-horizontal hidden" id="sign_in" action="http://127.0.0.1:8000/api/v1/my_user/" method="put">
+      <form class="form-horizontal hidden" id="sign_in" action="http://127.0.0.1:8000/api/v1/my_user/?format=json" method="put">
           <fieldset class="good-padding">
               <div class="form-group">
                   <div class="col-lg-10">
@@ -61,8 +61,8 @@
               </div>
               <div class="form-group">
                   <div class="col-lg-1">
-                      <button type="submit" id="submit-login" class="btn btn-primary btn-sm ">
-                        Sign In
+                      <button type="submit" class="submit-login" class="btn btn-primary btn-sm ">
+                        <b>Sign In</b>
                       </button>
                   </div>
               </div>

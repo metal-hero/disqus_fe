@@ -12,7 +12,8 @@ user =
   nameString: null
 
 email = document.getElementById('inputEmail')
-name = document.getElementById('nameInput')
+name = document.getElementById('inputName')
+password = document.getElementById('inputPassword')
 
 retrievedObject
 foo
@@ -23,31 +24,34 @@ if localStorage.getItem('memory',user) != null
   name.setAttribute 'value', foo.nameString
   email.setAttribute 'value', foo.email
 
-emailInput = document.getElementById('inputEmail').value
-nameInput = document.getElementById('nameInput').value
 
-if emailInput.length == 0 or nameInput.length == 0
-  $('#focusedInput').attr 'disabled', 'disabled'
-else
-  $('#focusedInput').removeAttr 'disabled'
-
-checkEmpty = ->
-  if emailInput.length == 0 or nameInput.length == 0
-    true
-  else
-    false
-
-tab_check = 0
+tab_check = false
 
 $('#changer').click -> 
-  if tab_check == 0
-    $('#registration').addClass('hidden')
+  if tab_check == false
+    $('#sign_up').addClass('hidden')
     $('#sign_in').removeClass('hidden')
-    tab_check = 1
+    $('#changer').html('Sign Up')
+    tab_check = true
   else 
-    $('#registration').removeClass('hidden')
+    $('#sign_up').removeClass('hidden')
     $('#sign_in').addClass('hidden')
-    tab_check = 0
+    $('#changer').html('Sign In')    
+    tab_check = false
+
+$('#submitSignUp').click ->
+  if $('#sign_up')[0].checkValidity()
+    alert('SMTH')
+    $.ajax 
+      url: 'http://127.0.0.1:8000/api/v1/my_user/',
+      type: 'POST',
+      data: JSON.stringify
+        email: $('#inputEmail').val(),
+        name: $('#inputName').val(),
+        password: $('#inputPassword').val(),
+      contentType: 'application/json',
+      success: ->
+        return alert("Registrated")
 
 loadData = ->
   $.ajax
@@ -120,47 +124,31 @@ loadData = ->
   return
 
 loadData()
-$('.col-lg-10 > input').keyup ->
-  user.email = document.getElementById('inputEmail').value
-  user.nameString = document.getElementById('nameInput').value
-  localStorage.setItem 'memory', JSON.stringify(user)
-  empty = undefined
-  empty = checkEmpty()
-  $('.col-lg-10 > input').each ->
-    if $(this).val() == ''
-      empty = true
-    return
-  if empty
-    $('#focusedInput').attr 'disabled', 'disabled'
-  else
-    $('#focusedInput').removeAttr 'disabled'
-  return
-$('#focusedInput').keyup ->
-  empty = undefined
-  empty = false
-  if $(this).val() == ''
-    empty = true
-  if empty
-    document.getElementById('focusedInput').className = 'form-control empty'
-  else
-    document.getElementById('focusedInput').className = 'form-control'
-  return
-$('#focusedInput').keyup (event) ->
-  if document.getElementById('focusedInput').value != ''
-    if event.keyCode == 13
-      data = JSON.stringify(
-        'text': document.getElementById('focusedInput').value
-        'author_title': nameInput
-        'image': 'http://www.gravatar.com/avatar/' + CryptoJS.MD5(emailInput))
-      $.ajax
-        url: 'http://127.0.0.1:8000/api/v1/comment/'
-        type: 'POST'
-        contentType: 'application/json'
-        data: data
-        dataType: 'json'
-        processData: false
-      loadData()
-  return
+# $('.col-lg-10 > input').keyup ->
+#   user.email = document.getElementById('inputEmail').value
+#   user.nameString = document.getElementById('nameInput').value
+#   localStorage.setItem 'memory', JSON.stringify(user)
+#   empty = undefined
+#   empty = checkEmpty()
+#   $('.col-lg-10 > input').each ->
+#     if $(this).val() == ''
+#       empty = true
+#     return
+#   if empty
+#     $('#focusedInput').attr 'disabled', 'disabled'
+#   else
+#     $('#focusedInput').removeAttr 'disabled'
+#   return
+# $('#focusedInput').keyup ->
+#   empty = undefined
+#   empty = false
+#   if $(this).val() == ''
+#     empty = true
+#   if empty
+#     document.getElementById('focusedInput').className = 'form-control empty'
+#   else
+#     document.getElementById('focusedInput').className = 'form-control'
+#   return
 return
 
 
