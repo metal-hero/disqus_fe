@@ -1,11 +1,11 @@
 'use strict';
 
-counter
-if localStorage.getItem('counter')
-  counter = localStorage.getItem('counter')
+# counter
+# if localStorage.getItem('counter')
+#   counter = localStorage.getItem('counter')
 
-console.log counter
-yourGlobalVariable = 0
+# console.log counter
+# yourGlobalVariable = 0
 
 user =
   email: null
@@ -46,84 +46,98 @@ $('#submitSignUp').click ->
       url: 'http://127.0.0.1:8000/api/v1/my_user/',
       type: 'POST',
       data: JSON.stringify
-        email: $('#inputEmail').val(),
-        name: $('#inputName').val(),
-        password: $('#inputPassword').val(),
+        email: $('#sign_upEmail').val(),
+        name: $('#sign_upName').val(),
+        password: $('#sign_upPassword').val(),
       contentType: 'application/json',
-      success: ->
+      success: (msg) ->
         return alert("Registrated")
 
-loadData = ->
-  $.ajax
-    url: 'http://127.0.0.1:8000/api/v1/comment/'
-    success: (result) ->
-      `var email`
-      if counter < result.objects.length
-        i = counter + 1
-        while i < result.objects.length
-          contDiv = undefined
-          dd = undefined
-          email = undefined
-          globalDiv = undefined
-          gravatar = undefined
-          img = undefined
-          imgDiv = undefined
-          mesDiv = undefined
-          mesString = undefined
-          mm = undefined
-          nameString = undefined
-          nameUser = undefined
-          newDiv = undefined
-          sep = undefined
-          timeDiv = undefined
-          today = undefined
-          yyyy = undefined
-          mesString = document.getElementById('focusedInput').value
-          globalDiv = document.getElementById('omg')
-          if yourGlobalVariable > 0
-            sep = document.createElement('div')
-            sep.setAttribute 'class', 'list-group-separator'
-            globalDiv.appendChild sep
-          newDiv = document.createElement('div')
-          newDiv.setAttribute 'class', 'list-group-item'
-          globalDiv.appendChild newDiv
-          imgDiv = document.createElement('div')
-          imgDiv.setAttribute 'class', 'row-action-primary'
-          newDiv.appendChild imgDiv
-          img = document.createElement('img')
-          img.setAttribute 'class', 'circle'
-          gravatar = result.objects[i].image
-          img.setAttribute 'src', gravatar
-          imgDiv.appendChild img
-          contDiv = document.createElement('div')
-          contDiv.setAttribute 'class', 'row-content'
-          newDiv.appendChild contDiv
-          timeDiv = document.createElement('div')
-          timeDiv.setAttribute 'class', 'least-content'
-          time = result.objects[i].pub_time
-          time = time.substring(0, 10)
-          day = time.substring(8, 10)
-          month = time.substring(5, 7)
-          year = time.substring(2, 4)
-          timeDiv.appendChild document.createTextNode(day + '.' + month + '.' + year)
-          contDiv.appendChild timeDiv
-          nameUser = document.createElement('h4')
-          nameUser.setAttribute 'class', 'list-group-item-heading'
-          nameUser.appendChild document.createTextNode(result.objects[i].author_title)
-          contDiv.appendChild nameUser
-          mesDiv = document.createElement('p')
-          mesDiv.setAttribute 'class', 'list-group-item-text'
-          mesDiv.appendChild document.createTextNode(result.objects[i].text)
-          contDiv.appendChild mesDiv
-          yourGlobalVariable++
-          counter = i
-          localStorage.setItem 'counter', counter
-          console.log counter + ' ' + i
-          i++
-      return
-  return
+$('#submitSignIn').click ->
+  if $('#sign_in')[0].checkValidity()
+    alert('SMTH '+$('#sign_inEmail').val())
+    list = {'email': $('#sign_inEmail').val(), 'password': $('#sign_inPassword').val()}
+    alert(list['email'])
+    $.ajax 
+      url: 'http://127.0.0.1:8000/login/',
+      type: 'POST',
+      data: JSON.stringify
+        'list' : JSON.stringify(list)
+      contentType: 'application/json',
+      success: (msg) ->
+        return alert("Sign In")
 
-loadData()
+
+# loadData = ->
+#   $.ajax
+#     url: 'http://127.0.0.1:8000/api/v1/comment/'
+#     success: (result) ->
+#       `var email`
+#       if counter < result.objects.length
+#         i = counter + 1
+#         while i < result.objects.length
+#           contDiv = undefined
+#           dd = undefined
+#           email = undefined
+#           globalDiv = undefined
+#           gravatar = undefined
+#           img = undefined
+#           imgDiv = undefined
+#           mesDiv = undefined
+#           mesString = undefined
+#           mm = undefined
+#           nameString = undefined
+#           nameUser = undefined
+#           newDiv = undefined
+#           sep = undefined
+#           timeDiv = undefined
+#           today = undefined
+#           yyyy = undefined
+#           mesString = document.getElementById('focusedInput').value
+#           globalDiv = document.getElementById('omg')
+#           if yourGlobalVariable > 0
+#             sep = document.createElement('div')
+#             sep.setAttribute 'class', 'list-group-separator'
+#             globalDiv.appendChild sep
+#           newDiv = document.createElement('div')
+#           newDiv.setAttribute 'class', 'list-group-item'
+#           globalDiv.appendChild newDiv
+#           imgDiv = document.createElement('div')
+#           imgDiv.setAttribute 'class', 'row-action-primary'
+#           newDiv.appendChild imgDiv
+#           img = document.createElement('img')
+#           img.setAttribute 'class', 'circle'
+#           gravatar = result.objects[i].image
+#           img.setAttribute 'src', gravatar
+#           imgDiv.appendChild img
+#           contDiv = document.createElement('div')
+#           contDiv.setAttribute 'class', 'row-content'
+#           newDiv.appendChild contDiv
+#           timeDiv = document.createElement('div')
+#           timeDiv.setAttribute 'class', 'least-content'
+#           time = result.objects[i].pub_time
+#           time = time.substring(0, 10)
+#           day = time.substring(8, 10)
+#           month = time.substring(5, 7)
+#           year = time.substring(2, 4)
+#           timeDiv.appendChild document.createTextNode(day + '.' + month + '.' + year)
+#           contDiv.appendChild timeDiv
+#           nameUser = document.createElement('h4')
+#           nameUser.setAttribute 'class', 'list-group-item-heading'
+#           nameUser.appendChild document.createTextNode(result.objects[i].author_title)
+#           contDiv.appendChild nameUser
+#           mesDiv = document.createElement('p')
+#           mesDiv.setAttribute 'class', 'list-group-item-text'
+#           mesDiv.appendChild document.createTextNode(result.objects[i].text)
+#           contDiv.appendChild mesDiv
+#           yourGlobalVariable++
+#           counter = i
+#           localStorage.setItem 'counter', counter
+#           console.log counter + ' ' + i
+#           i++
+#       return
+
+# loadData()
 # $('.col-lg-10 > input').keyup ->
 #   user.email = document.getElementById('inputEmail').value
 #   user.nameString = document.getElementById('nameInput').value

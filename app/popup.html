@@ -21,53 +21,53 @@
           <button type="button" id="changer" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
           style="color:white;margin-left:50px;margin-top:-8px" >Sign In</button>
       </div>      
-      <form id="sign_up" >
+      <form class="form-horizontal" id="sign_up" action="">
           <fieldset class="good-padding">
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" reuired>
+                      <input type="email" class="form-control" id="sign_upEmail" placeholder="Email" name="email" reuired>
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Name" name="name" required>
+                      <input type="text" class="form-control" id="sign_upName" placeholder="Name" name="name" required>
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required>   
+                      <input type="password" class="form-control" id="sign_upPassword" placeholder="Password" name="password" required>   
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-1">
-                      <button id="submitSignUp" class="submit-login" class="btn btn-primary btn-sm">
+                      <button id="submitSignUp" class="btn btn-primary btn-sm submit-login">
                         <b>Sign Up</b>
                       </button>
                   </div>
               </div>
           </fieldset>
       </form>
-      <form class="form-horizontal hidden" id="sign_in" action="http://127.0.0.1:8000/api/v1/my_user/?format=json" method="put">
+      <form class="form-horizontal hidden" id="sign_in" action="">
           <fieldset class="good-padding">
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" reuired>
+                      <input type="email" class="form-control" id="sign_inEmail" placeholder="Email" name="email" reuired>
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-10">
-                      <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>   
+                      <input type="password" class="form-control" id="sign_inPassword" name="password" placeholder="Password" required>   
                   </div>
               </div>
               <div class="form-group">
                   <div class="col-lg-1">
-                      <button type="submit" class="submit-login" class="btn btn-primary btn-sm ">
+                      <button id="submitSignIn" class="btn btn-primary btn-sm submit-login">
                         <b>Sign In</b>
                       </button>
                   </div>
               </div>
           </fieldset>
-      </form>
+      </form> 
   </div>
 
  <!-- BODY -->
