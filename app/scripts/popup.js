@@ -1,10 +1,10 @@
 (function() {
   'use strict';
-  var email, foo, name, password, retrievedObject, tab_check, user;
+  var User, authenticated, email, log_out, name, password, tab_check;
 
-  user = {
-    email: null,
-    nameString: null
+  User = {
+    email: "",
+    name: ""
   };
 
   email = document.getElementById('inputEmail');
@@ -12,17 +12,6 @@
   name = document.getElementById('inputName');
 
   password = document.getElementById('inputPassword');
-
-  retrievedObject;
-
-  foo;
-
-  if (localStorage.getItem('memory', user) !== null) {
-    retrievedObject = localStorage.getItem('memory', user);
-    foo = JSON.parse(retrievedObject);
-    name.setAttribute('value', foo.nameString);
-    email.setAttribute('value', foo.email);
-  }
 
   tab_check = false;
 
@@ -59,27 +48,41 @@
     }
   });
 
+  authenticated = (function(_this) {
+    return function() {
+      $('#user-form').addClass('hidden');
+      $('#comments').removeClass('hidden');
+      return $('#user-info_label').html(User.name + "  " + User.email);
+    };
+  })(this);
+
+  log_out = (function(_this) {
+    return function() {
+      $('#user-form').removeClass('hidden');
+      $('#comments').addClass('hidden');
+      return $('#user-info_label').html("");
+    };
+  })(this);
+
+  if (localStorage.getItem("user-info")) {
+    User = JSON.parse(localStorage.getItem("user-info"));
+    authenticated();
+  }
+
   $('#submitSignIn').click(function() {
-    var list;
     if ($('#sign_in')[0].checkValidity()) {
-      alert('SMTH ' + $('#sign_inEmail').val());
-      list = {
-        'email': $('#sign_inEmail').val(),
-        'password': $('#sign_inPassword').val()
-      };
-      alert(list['email']);
-      return $.ajax({
-        url: 'http://127.0.0.1:8000/login/',
-        type: 'POST',
-        data: JSON.stringify({
-          'list': JSON.stringify(list)
-        }),
-        contentType: 'application/json',
-        success: function(msg) {
-          return alert("Sign In");
-        }
-      });
+      email = $('#sign_inEmail').val();
+      name = 'Roman';
+      User.email = email;
+      User.name = name;
+      authenticated();
+      return localStorage.setItem("user-info", JSON.stringify(User));
     }
+  });
+
+  $('#sign_out').click(function() {
+    localStorage.removeItem("user-info");
+    return log_out();
   });
 
   return;

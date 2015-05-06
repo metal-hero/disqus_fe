@@ -15,7 +15,7 @@
   </head>
   <body class="good-padding">
   <h4><b>SDU Disqus</b></h4>
-  <div class="panel panel-primary">
+  <div id="user-form" class="panel panel-primary">
       <div class="panel-heading">
           <h3 class="panel-title" style="float:left">Who are you?</h3>
           <button type="button" id="changer" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
@@ -71,9 +71,13 @@
   </div>
 
  <!-- BODY -->
-<div class="panel panel-primary hidden" >
+<b><div style="float:right; margin-top:-30px" id="user-info_label" ></div></b>
+<div id="comments" class="panel panel-primary hidden" >
   <div class="panel-heading">
       Body
+  <button type="button" id="sign_out" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+          style="color:white;margin-left:165px;margin-top:-30px" >Sign Out
+  </button>
   </div>
   <div class="panel-body" id="someID" style="overflow-y:auto;max-height:280px !important;">
     <div class="list-group" id="omg" >

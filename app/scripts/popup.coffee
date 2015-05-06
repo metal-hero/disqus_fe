@@ -1,29 +1,12 @@
 'use strict';
 
-# counter
-# if localStorage.getItem('counter')
-#   counter = localStorage.getItem('counter')
-
-# console.log counter
-# yourGlobalVariable = 0
-
-user =
-  email: null
-  nameString: null
+User =
+  email: ""
+  name: ""
 
 email = document.getElementById('inputEmail')
 name = document.getElementById('inputName')
 password = document.getElementById('inputPassword')
-
-retrievedObject
-foo
-
-if localStorage.getItem('memory',user) != null
-  retrievedObject = localStorage.getItem('memory', user)
-  foo = JSON.parse(retrievedObject)
-  name.setAttribute 'value', foo.nameString
-  email.setAttribute 'value', foo.email
-
 
 tab_check = false
 
@@ -53,19 +36,57 @@ $('#submitSignUp').click ->
       success: (msg) ->
         return alert("Registrated")
 
+authenticated = =>
+  $('#user-form').addClass('hidden')
+  $('#comments').removeClass('hidden')
+  $('#user-info_label').html(User.name+"  "+User.email)
+
+log_out = =>
+  $('#user-form').removeClass('hidden')
+  $('#comments').addClass('hidden')
+  $('#user-info_label').html("")
+
+if localStorage.getItem("user-info")
+  User = JSON.parse(localStorage.getItem("user-info"))
+  # alert(JSON.stringify(User))
+  authenticated()
+
+
 $('#submitSignIn').click ->
   if $('#sign_in')[0].checkValidity()
-    alert('SMTH '+$('#sign_inEmail').val())
-    list = {'email': $('#sign_inEmail').val(), 'password': $('#sign_inPassword').val()}
-    alert(list['email'])
-    $.ajax 
-      url: 'http://127.0.0.1:8000/login/',
-      type: 'POST',
-      data: JSON.stringify
-        'list' : JSON.stringify(list)
-      contentType: 'application/json',
-      success: (msg) ->
-        return alert("Sign In")
+    email = $('#sign_inEmail').val()
+    name = 'Roman' 
+    # I wrote this because I couldn't make authentication from tastypie
+    User.email = email
+    # alert $('#sign_inEmail') 
+    # User.email = 'bla'
+    User.name = name
+    # alert(JSON.stringify(User))
+    authenticated()
+    localStorage.setItem("user-info", JSON.stringify(User))
+    
+
+$('#sign_out').click ->
+  localStorage.removeItem("user-info")
+  log_out()
+
+# if User
+#     $('user-form').addClass('hidden')
+#     $('comments').removeClass('hidden')
+
+# $('#submitSignIn').click ->
+#   if $('#sign_in')[0].checkValidity()
+#     alert('SMTH '+$('#sign_inEmail').val())
+#     list = {'email': $('#sign_inEmail').val(), 'password': $('#sign_inPassword').val()}
+#     alert(list['email'])
+#     $.ajax 
+#       url: 'http://127.0.0.1:8000/login/',
+#       type: 'POST',
+#       data: JSON.stringify
+#         'list' : JSON.stringify(list)
+#       contentType: 'application/json',
+#       success: (msg) ->
+#         return alert("Sign In")
 
 
 # loadData = ->
