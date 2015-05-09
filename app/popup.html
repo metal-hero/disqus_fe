@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material.css" />
   <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css" />
+
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css styles/main.css -->
@@ -19,7 +20,7 @@
       <div class="panel-heading">
           <h3 class="panel-title" style="float:left">Who are you?</h3>
           <button type="button" id="changer" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-          style="color:white;margin-left:50px;margin-top:-8px" >Sign In</button>
+          style="color:white;margin-left:150px;margin-top:-28px" >Sign In</button>
       </div>      
       <form class="form-horizontal" id="sign_up" action="">
           <fieldset class="good-padding">
@@ -71,31 +72,30 @@
   </div>
 
  <!-- BODY -->
-<b><div style="float:right; margin-top:-30px" id="user-info_label" ></div></b>
 <div id="comments" class="panel panel-primary hidden" >
   <div class="panel-heading">
       Body
   <button type="button" id="sign_out" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-          style="color:white;margin-left:165px;margin-top:-30px" >Sign Out
+          style="color:white;margin-left:150px;margin-top:-30px" >Sign Out
   </button>
+  <div style="margin-top:-15px" id="user-info_label" ></div>
   </div>
   <div class="panel-body" id="someID" style="overflow-y:auto;max-height:280px !important;">
-    <div class="list-group" id="omg" >
+    <div class="list-group" id="comments" >
     </div>
   </div>
 
  <!-- FOOTER -->
-    <div class="panel-footer" style="margin-top:-5%">
+    <div class="panel-footer" style="margin-top:-4%">
       <i class="mdi-communication-messenger" style="font:20px 'Material-Design-Icons';margin-top:1%"></i>
       <div class="form-control-wrapper" style=""> 
-        <input class='form-control empty' id='focusedInput' type='text' style='width:90%;margin-left:10%;margin-top:-7%' disabled='disabled'>
-          <div class="floating-label" style="width:80%;margin-left:10%;bottom:20px;font-weight:bold">
+        <input class='form-control empty' id='enteredInput' type='text' style='width:90%;margin-left:10%;margin-top:-7%'>
+          <div class="floating-label" style="width:95%;margin-left:10%;bottom:20px;">
             Type your comments and press Enter
           </div>
       </div>
     </div>
   </div>
-
 
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
