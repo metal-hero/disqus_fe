@@ -26,3 +26,7 @@ body {
 .submit-login{
 	margin-left: 165px;
 }
+
+.circle{
+	border-radius: 50%;
+}

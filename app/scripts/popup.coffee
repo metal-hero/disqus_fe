@@ -72,23 +72,10 @@ $('#sign_out').click ->
   localStorage.removeItem("user-info")
   log_out()
 
-# if User
-#     $('user-form').addClass('hidden')
-#     $('comments').removeClass('hidden')
-
-# $('#submitSignIn').click ->
-#   if $('#sign_in')[0].checkValidity()
-#     alert('SMTH '+$('#sign_inEmail').val())
-#     list = {'email': $('#sign_inEmail').val(), 'password': $('#sign_inPassword').val()}
-#     alert(list['email'])
-#     $.ajax 
-#       url: 'http://127.0.0.1:8000/login/',
-#       type: 'POST',
-#       data: JSON.stringify
-#         'list' : JSON.stringify(list)
-#       contentType: 'application/json',
-#       success: (msg) ->
-#         return alert("Sign In")
+cleanData = ->
+  $('.list-group-item').remove()
+  $('.list-group-separator').remove()
+  location.reload()
 
 
 loadData = ->
@@ -174,7 +161,7 @@ $('#enteredInput').keyup (event) ->
         data: data
         dataType: 'json'
         processData: false
-      loadData()
+      cleanData()
   return
 return
 
