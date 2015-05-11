@@ -12,12 +12,18 @@ tab_check = false
 
 cur_domain: null
 
+URL =
+  data: {}
+  count: 0
+
+  # alert(JSON.stringify(URL.data))
+
 # cur_domain = document.domain
 
 if localStorage.getItem("get-domain")
   cur_domain = JSON.parse(localStorage.getItem("get-domain"))
   # alert(cur_domain)
-  
+
 $('#changer').click -> 
   if tab_check == false
     $('#sign_up').addClass('hidden')
@@ -97,6 +103,12 @@ loadData = ->
       # alert(domain)
       i = result.objects.length
       i--
+      # Save number of comments to localStorage fot backgrounf.js BEGIN
+      URL.data = JSON.parse(localStorage.getItem("url-info"))
+      URL.data[cur_domain] = result.objects.length
+      URL.count = result.objects.length
+      localStorage.setItem("url-info", JSON.stringify(URL.data))
+      # Save number of comments to localStorage fot backgrounf.js END
       while i >= 0
         globalDiv = $('#comments')
         # globalDiv.html('')
@@ -160,7 +172,7 @@ $('#enteredInput').keyup ->
 $('#enteredInput').keyup (event) ->
   if document.getElementById('enteredInput').value != ''
     if event.keyCode == 13
-      # alert("Entered")
+      # POST query to Server 
       data = JSON.stringify
         'text': document.getElementById('enteredInput').value
         'site_url': cur_domain
