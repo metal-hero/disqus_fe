@@ -11,11 +11,3 @@ $this =
   newComment: (url, title, email, comment, callback, errback) ->
 
 module.Backend = $this
-
-# User =
-#   email: ""
-#   name: ""
-
-# if localStorage.getItem("user-info")
-#   User = JSON.parse(localStorage.getItem("user-info"))
-#   alert(JSON.stringify(User))

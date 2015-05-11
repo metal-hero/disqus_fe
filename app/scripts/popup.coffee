@@ -10,6 +10,14 @@ password = document.getElementById('inputPassword')
 
 tab_check = false
 
+cur_domain: null
+
+# cur_domain = document.domain
+
+if localStorage.getItem("get-domain")
+  cur_domain = JSON.parse(localStorage.getItem("get-domain"))
+  # alert(cur_domain)
+  
 $('#changer').click -> 
   if tab_check == false
     $('#sign_up').addClass('hidden')
@@ -24,7 +32,7 @@ $('#changer').click ->
 
 $('#submitSignUp').click ->
   if $('#sign_up')[0].checkValidity()
-    alert('SMTH')
+    # alert('SMTH')
     $.ajax 
       url: 'http://127.0.0.1:8000/api/v1/my_user/',
       type: 'POST',
@@ -80,10 +88,13 @@ cleanData = ->
 
 loadData = ->
   firstVariable = false
+  url_str = 'http://127.0.0.1:8000/api/v1/comment/?site_url='+cur_domain+'&format=json'
+  # alert(url_str)
   $.ajax
-    url: 'http://127.0.0.1:8000/api/v1/comment/'
+    url: url_str
     success: (result) ->
       `var email`
+      # alert(domain)
       i = result.objects.length
       i--
       while i >= 0
@@ -152,6 +163,7 @@ $('#enteredInput').keyup (event) ->
       # alert("Entered")
       data = JSON.stringify
         'text': document.getElementById('enteredInput').value
+        'site_url': cur_domain
         'author_title': User.name
         'image': 'http://www.gravatar.com/avatar/' + CryptoJS.MD5(User.email)
       $.ajax
